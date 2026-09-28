@@ -1,7 +1,7 @@
 # insta-selfbot
 
 Discord selfbot that rewrites Instagram and TikTok links in DMs and group chats to
-`oginstagram.com` / `tfxktok.com` so they embed properly.
+`oginstagram.com` / `tnktok.com` so they embed properly.
 
 - Links someone else sends get a reply with the rewritten link.
 - Links you send yourself are edited in place.

@@ -1,6 +1,6 @@
 """
 Discord selfbot: when someone sends you an Instagram or TikTok link in a DM or group chat,
-reply with the same link rewritten to oginstagram / tfxktok. When you send one yourself,
+reply with the same link rewritten to oginstagram / tnktok. When you send one yourself,
 your message is edited in place instead. Both go out through one queue with a fixed delay
 between each one.
 """
@@ -15,7 +15,7 @@ import discord
 
 DELAY_SECONDS = 30
 INSTAGRAM_REPLACEMENT = "oginstagram.com"
-TIKTOK_REPLACEMENT = "tfxktok.com"
+TIKTOK_REPLACEMENT = "tnktok.com"
 
 # Matches instagram.com and tiktok.com links (with or without www./m./vm. etc). Stops at
 # whitespace and characters Discord uses for markdown/embeds suppression like <>, (), and ||.
@@ -39,7 +39,7 @@ def load_token() -> str:
 
 def convert_url(match: re.Match) -> str:
     scheme, subdomains, site, path = match.groups()
-    # www. is the only subdomain kept: www.tiktok.com -> www.tfxktok.com, pro.tiktok.com -> tfxktok.com
+    # www. is the only subdomain kept: www.tiktok.com -> www.tnktok.com, pro.tiktok.com -> tnktok.com
     prefix = subdomains if subdomains.lower() == "www." else ""
     domain = TIKTOK_REPLACEMENT if site.lower() == "tiktok" else INSTAGRAM_REPLACEMENT
     return f"{scheme}{prefix}{domain}{path}"
@@ -76,7 +76,7 @@ class InstaSelfbot(discord.Client):
     async def on_message(self, message: discord.Message):
         if not isinstance(message.channel, (discord.DMChannel, discord.GroupChannel)):
             return
-        # Converted links (oginstagram.com, tfxktok.com) don't match, so the bot's own replies
+        # Converted links (oginstagram.com, tnktok.com) don't match, so the bot's own replies
         # and already-edited messages are ignored here.
         if not SOCIAL_URL.search(message.content):
             return
